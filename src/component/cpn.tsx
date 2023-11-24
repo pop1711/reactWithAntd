@@ -1,4 +1,4 @@
-import { Col, Form, Input, Row } from "antd";
+import { Col, Form, Input, Row, Select } from "antd";
 import axios from "axios";
 
 type FieldType = {
@@ -26,12 +26,23 @@ const Cpn : React.FC = () => {
     </Form.Item>
       </Col>
       <Col span={12}>
-      <Form.Item<FieldType>
+      {/* <Form.Item<FieldType>
       label="จังหวัด"
       name="city"
       rules={[{ required: true, message: 'Please input your city!' }]}
     >
       <Input />
+    </Form.Item> */}
+    <Form.Item
+      name="select"
+      label="จังหวัด"
+      hasFeedback
+      rules={[{ required: true, message: 'Please select your province!' }]}
+    >
+      <Select placeholder="กรุณาเลือกจังหวัด">
+        <option value="bangkok">กรุงเทพ</option>
+        <option value="chiangmai">เชียงใหม่</option>
+      </Select>
     </Form.Item>
       </Col>
     </Row>

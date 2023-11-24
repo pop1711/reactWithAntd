@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
 import Cpn from './component/cpn';
 import FieldType from './component/cpn'
+import CityDropdown from './component/city';
 
 
 const onFinish = (values: any) => {
@@ -37,6 +38,8 @@ const App: React.FC = () => (
         Submit
       </Button>
     </Form.Item>
+
+    {/* <CityDropdown></CityDropdown> */}
   </Form></>
 
 );
