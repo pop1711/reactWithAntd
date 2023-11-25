@@ -27,6 +27,7 @@ type FieldType = {
     rate?:number;
     fiveYearsCar?:boolean;
     amount?:number;
+    percentDiscount?:number;
     isInsoection?:boolean;
     inspection?:number;
     isTaxCarService?:boolean;
@@ -265,15 +266,42 @@ const Cpn : React.FC = () => {
       <Col span={8}>
       <Checkbox onChange={onChange} name="fiveYearsCar">รถเก่าใช้มานานเกิน 5 ปี ให้ลดภาษี(% จากภาษี)</Checkbox>
       </Col>
-      <Col span={16}>
+      {/* <Col span={8}>
       <Form.Item<FieldType>
           label=""
           name="amount"
-          rules={[{ required: true, message: 'Please input your amount!' }]}
+          rules={[{ required: false, message: 'Please input your amount!' }]}
         >
           <Input placeholder="Amount"/>
         </Form.Item>
       </Col>
+      <Col span={8}>
+      <Form.Item<FieldType>
+          label=""
+          name="percentDiscount"
+          rules={[{ required: false, message: 'Please input your amount!' }]}
+        >
+          <Input placeholder="Percent discount"/>
+        </Form.Item>
+      </Col> */}
+      <Col span={8}>
+        <Mentions
+            name="amount"
+            style={{ width: '100%', textAlign: 'center' }}
+            placeholder="Amount"
+            disabled
+            options={options}
+          />
+      </Col>
+      <Col span={8}>
+        <Mentions
+            name="percentDiscount"
+            style={{ width: '100%', textAlign: 'center' }}
+            placeholder="Percent Discount"
+            disabled
+            options={options}
+          />
+        </Col>
     </Row>
 
 
