@@ -2,7 +2,7 @@ import { Col, Form, Input, Row, Select, Checkbox, Button} from "antd";
 import axios from "axios";
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React, { useState } from 'react';
-import { PlusCircleOutlined } from "@ant-design/icons";
+import { MinusOutlined, PlusCircleOutlined } from "@ant-design/icons";
 
 type FieldType = {
     registerNo?:string;
@@ -42,6 +42,12 @@ const Cpn : React.FC = () => {
 
   const addNewField = () => {
     setFields([...fields, { field1: '', field2: '', field3: '' }]);
+  };
+
+  const removeField = (indexToRemove: any) => {
+    const updatedFields = [...fields];
+    updatedFields.splice(indexToRemove, 1);
+    setFields(updatedFields);
   };
 
   const handleInputChange = (index: number, fieldName: keyof FormData, value: string) => {
@@ -230,10 +236,12 @@ const Cpn : React.FC = () => {
 
 
 {/* ภาษีล่าช้า */}
-
     <Row>
       <Col span={6}>
-      <Checkbox onChange={onChange} name="lateTax">ค่าปรับเสียภาษีล่าช้า (%เดือน) <Button type="primary" onClick={addNewField} icon={<PlusCircleOutlined />}></Button> </Checkbox>
+      <Checkbox onChange={onChange} name="lateTax">ค่าปรับเสียภาษีล่าช้า (%เดือน) 
+      <Button type="primary" onClick={addNewField} icon={<PlusCircleOutlined />}></Button> 
+      <Button type="primary" danger onClick={removeField} icon={<MinusOutlined />}></Button>
+      </Checkbox>
       </Col>
 
       <div>
