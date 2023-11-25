@@ -23,14 +23,12 @@ type FieldType = {
     rate?:number;
     fiveYearsCar?:boolean;
     amount?:number;
-    month?:number;
-    percentLate?:number;
-    totalPercentLate?:number;
   };
   // ภาษีล่าช้า
-  interface InputForm {
-    id: number;
-    value: string;
+  interface FormData {
+    field1: string;//month
+    field2: string;//percentLate
+    field3: string;//totalPercentLate
   }
 
   const onChange = (e: CheckboxChangeEvent) => {
@@ -39,24 +37,22 @@ type FieldType = {
 
 const Cpn : React.FC = () => {
   // ภาษีล่าช้า
-  const [inputForms, setInputForms] = useState<InputForm[]>([{ id: 1, value: '' }]);
+  const [form] = Form.useForm();
+  const [fields, setFields] = useState<FormData[]>([]);
 
-  const addInputForm = () => {
-    const newInputForms = [
-      ...inputForms,
-      {
-        id: inputForms.length + 1,
-        value: '',
-      },
-    ];
-    setInputForms(newInputForms);
+  const addNewField = () => {
+    setFields([...fields, { field1: '', field2: '', field3: '' }]);
   };
 
-  const handleInputChange = (id: number, event: React.ChangeEvent<HTMLInputElement>) => {
-    const updatedForms = inputForms.map(form =>
-      form.id === id ? { ...form, value: event.target.value } : form
-    );
-    setInputForms(updatedForms);
+  const handleInputChange = (index: number, fieldName: keyof FormData, value: string) => {
+    const updatedFields = [...fields];
+    updatedFields[index][fieldName] = value;
+    setFields(updatedFields);
+  };
+
+  const onFinish = () => {
+    console.log('Submitted Fields:', fields);
+    // Handle form submission logic here
   };
 
     return(
@@ -237,69 +233,45 @@ const Cpn : React.FC = () => {
 
     <Row>
       <Col span={6}>
-      <Checkbox onChange={onChange} name="lateTax">ค่าปรับเสียภาษีล่าช้า (%เดือน)</Checkbox>
+      <Checkbox onChange={onChange} name="lateTax">ค่าปรับเสียภาษีล่าช้า (%เดือน) <Button type="primary" onClick={addNewField} icon={<PlusCircleOutlined />}></Button> </Checkbox>
       </Col>
-      <Col span={6}>
-        <Form.Item<FieldType>
-          label=""
-          name="month"
-          rules={[{ required: true, message: 'Please input month!' }]}
-        >
-          <Input placeholder="Month"/>
-        </Form.Item>
-      </Col>
-      <Col span={6}>
-        <Form.Item<FieldType>
-          label=""
-          name="percentLate"
-          rules={[{ required: true, message: 'Please input your percent late!' }]}
-        >
-          <Input placeholder="Percent late"/>
-        </Form.Item>
-      </Col>
-      <Col span={6}>
-       <Form.Item<FieldType>
-          label=""
-          name="totalPercentLate"
-          rules={[{ required: true, message: 'Please input your total percent late!' }]}
-        >
-          <Input placeholder="Total percent late"/>
-        </Form.Item>
-      </Col>
-    </Row>
 
-    {inputForms.map(form => (
-        <div key={form.id} style={{ marginBottom: '10px' }}>
-          <Row>
-            <Col span={6}>
-            <Input
-              value={form.value}
-              onChange={e => handleInputChange(form.id, e)}
-              placeholder="Enter a value"
-            />
-            </Col>
-            <Col span={6}>
-            <Input
-              value={form.value}
-              onChange={e => handleInputChange(form.id, e)}
-              placeholder="Enter a value"
-            />
-            </Col>
-            <Col span={6}>
-            <Input
-              value={form.value}
-              onChange={e => handleInputChange(form.id, e)}
-              placeholder="Enter a value"
-            />
-            </Col>
-          </Row>
-          
-        </div>
+      <div>
+      <Form form={form} onFinish={onFinish}>
+      {fields.map((field, index) => (
+        <Row key={index} gutter={16}>
+          <Col span={8}>
+            <Form.Item name={`field1-${index}`} initialValue={field.field1}>
+              <Input
+                placeholder="Month"
+                value={field.field1}
+                onChange={(e) => handleInputChange(index, 'field1', e.target.value)}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={8}>
+            <Form.Item name={`field2-${index}`} initialValue={field.field2} rules={[{ required: true, message: 'Please input Percent late!' }]}>
+              <Input
+                placeholder="Percent late"
+                value={field.field2}
+                onChange={(e) => handleInputChange(index, 'field2', e.target.value)}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={8}>
+            <Form.Item name={`field3-${index}`} initialValue={field.field3} rules={[{ required: true, message: 'Please input Total late!' }]}>
+              <Input
+                placeholder="Total late"
+                value={field.field3}
+                onChange={(e) => handleInputChange(index, 'field3', e.target.value)}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
       ))}
-      <Button type="primary" onClick={addInputForm} icon={<PlusCircleOutlined />}>
-        
-      </Button>
-
+    </Form>
+      </div>
+    </Row>
         </>
     );
 };

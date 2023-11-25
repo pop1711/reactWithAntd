@@ -3,6 +3,7 @@ import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
 import Cpn from './component/cpn';
 import FieldType from './component/cpn'
 import CityDropdown from './component/city';
+import DynamicForm from './component/dynamicForm';
 
 
 const onFinish = (values: any) => {
@@ -40,6 +41,7 @@ const App: React.FC = () => (
     </Form.Item>
 
     {/* <CityDropdown></CityDropdown> */}
+
   </Form></>
 
 );
