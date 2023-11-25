@@ -21,6 +21,9 @@ type FieldType = {
     rate?:number;
     fiveYearsCar?:boolean;
     amount?:number;
+    month?:number;
+    percentLate?:number;
+    totalPercentLate?:number;
   };
 
   const onChange = (e: CheckboxChangeEvent) => {
@@ -197,6 +200,39 @@ const Cpn : React.FC = () => {
           rules={[{ required: true, message: 'Please input your amount!' }]}
         >
           <Input placeholder="Amount"/>
+        </Form.Item>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col span={6}>
+      <Checkbox onChange={onChange} name="lateTax">ค่าปรับเสียภาษีล่าช้า (%เดือน)</Checkbox>
+      </Col>
+      <Col span={6}>
+        <Form.Item<FieldType>
+          label=""
+          name="month"
+          rules={[{ required: true, message: 'Please input month!' }]}
+        >
+          <Input placeholder="Month"/>
+        </Form.Item>
+      </Col>
+      <Col span={6}>
+        <Form.Item<FieldType>
+          label=""
+          name="percentLate"
+          rules={[{ required: true, message: 'Please input your percent late!' }]}
+        >
+          <Input placeholder="Percent late"/>
+        </Form.Item>
+      </Col>
+      <Col span={6}>
+       <Form.Item<FieldType>
+          label=""
+          name="totalPercentLate"
+          rules={[{ required: true, message: 'Please input your total percent late!' }]}
+        >
+          <Input placeholder="Total percent late"/>
         </Form.Item>
       </Col>
     </Row>
