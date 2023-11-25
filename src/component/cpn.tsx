@@ -6,54 +6,8 @@ import { MinusOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import type { DatePickerProps } from 'antd';
 import { DatePicker, Space } from 'antd';
 import { Mentions } from 'antd';
+import { FieldType } from "./component";
 
-
-type FieldType = {
-    registerNo?:string;
-    name?:string;
-    surName?:string;
-    registerDate?:string;
-    bodyNumber?:string;
-    phoneNumber?:string;
-    city?:string;
-    idCard?:string;
-    carType?:string;
-    cc?:number;
-    weigth?:number;
-    legalEntity?:boolean;
-    ngv?:boolean;
-    hybrid?:boolean;
-    carTax?:boolean;
-    rate?:number;
-    fiveYearsCar?:boolean;
-    amount?:number;
-    percentDiscount?:number;
-    isInsoection?:boolean;
-    inspection?:number;
-    isTaxCarService?:boolean;
-    taxCarService?:number;
-    isAct?:boolean;
-    act?:number;
-    isInsurance?:boolean;
-    insurance?:number;
-    isOther1?:boolean
-    other1?:string;
-    isOther2?:boolean
-    other2?:string;
-    isOther3?:boolean
-    other3?:string;
-    note1?:string;
-    note2?:string;
-    note3?:string;
-    note?:string;
-    discount?:number;
-    payType?:string;
-    location?:string;
-    // apptDate?:string;
-    // toDay?:string;
-    isCopy?:boolean;
-    totalPrice?:string; //รวมราคาทั้งหมด
-  };
   // ภาษีล่าช้า
   type FormData = {
     field1?:string;//month
@@ -109,13 +63,50 @@ const Cpn : React.FC = () => {
     console.log(`selected ${value}`);
   };
 
+  const [carTypeSelected, setCarTypeSelected] = useState<string>('0');
+
+  const carTypeChange = (value:any) => {
+    setCarTypeSelected(value)
+  }
+
   const carTypeOptions = [
-      { value: '7', label: '[รย.1] รถยนต์นั่งส่วนบุคคลไม่เกิน 7 คน (รถเก๋ง , รถกระบะ 4 ประตู) (645.21 บาท)' },
-      { value: '30', label: '[รย.2] รถยนต์นั่งส่วนบุคคลเกิน 7 คน (รถตู้) (1182.35 บาท)' },
-      { value: '28', label: '[รย.3] รถยนต์บรรทุกส่วนบุคคล (รถกระบะ 2 ประตู ) (967.28 บาท)' },
-      { value: '6', label: '[รย.12] รถจักรยานยนต์ส่วนบุคคล (รถจักรยานยนต์) (161.57 บาท)' },
+      { value: '1', label: '[รย.1] รถยนต์นั่งส่วนบุคคลไม่เกิน 7 คน (รถเก๋ง , รถกระบะ 4 ประตู) (645.21 บาท)' },
+      { value: '2', label: '[รย.2] รถยนต์นั่งส่วนบุคคลเกิน 7 คน (รถตู้) (1182.35 บาท)' },
+      { value: '3', label: '[รย.3] รถยนต์บรรทุกส่วนบุคคล (รถกระบะ 2 ประตู ) (967.28 บาท)' },
+      { value: '4', label: '[รย.12] รถจักรยานยนต์ส่วนบุคคล (รถจักรยานยนต์) (161.57 บาท)' },
       // { value: 'disabled', label: 'Disabled', disabled: true },
     ]
+
+  const carType1 = [
+    { value: '1', label: 'ไม่เกิน 5 ปี  cc น้อยกว่า 600' },
+    { value: '2', label: 'ไม่เกิน 5 ปี  cc 601 - 1,800' },
+    { value: '3', label: 'ไม่เกิน 5 ปี  cc เกิน 1,800' },
+    { value: '4', label: 'เป็นรถเก่าใช้งานมานานเกิน 6 ปี ให้ลดภาษี' },
+    { value: '5', label: 'เป็นรถเก่าใช้งานมานานเกิน 7 ปี ให้ลดภาษี' },
+    { value: '6', label: 'เป็นรถเก่าใช้งานมานานเกิน 8 ปี ให้ลดภาษี' },
+    { value: '7', label: 'เป็นรถเก่าใช้งานมานานเกิน 9 ปี ให้ลดภาษี' },
+    { value: '8', label: 'เป็นรถเก่าใช้งานมานานเกิน 10 ปี ให้ลดภาษี'},
+    { value: '9', label: 'รถจักรยานยนต์' },
+  ]
+
+  const carType2 = [
+    { value: '1', label: 'ไม่เกิน 500' },
+    { value: '2', label: '501 - 750' },
+    { value: '3', label: '751 - 1,000' },
+    { value: '4', label: '1,001 - 1,250' },
+    { value: '5', label: '1,251 - 1,500' },
+    { value: '6', label: '1,501 - 1,750' },
+    { value: '7', label: '1,751 - 2,000' },
+    { value: '8', label: '2,001 - 2,500' },
+    { value: '9', label: '2,501 - 3,000' },
+    { value: '10', label: '3,001 - 3,500' },
+    { value: '11', label: '3,501 - 4,000' },
+    { value: '12', label: '4,001 - 4,500' },
+    { value: '13', label: '4,501 - 5,000' },
+    { value: '14', label: '5,001 - 6,000' },
+    { value: '15', label: '6,001 - 7,000' },
+    { value: '16', label: '7,000 ขึ้นไป' },
+  ]
   
 
     return(
@@ -221,13 +212,48 @@ const Cpn : React.FC = () => {
         >
           <Select
             defaultValue="- โปรดเลือก -"
-            onChange={handleChange}
+            onChange={carTypeChange}
             options={carTypeOptions}
     />
         </Form.Item>
       </Col>
     </Row>
-
+    {/* รย1 */}
+    {carTypeSelected == '1' &&
+      <Row>
+      <Col span={24}>
+        <Form.Item 
+            name="carType1"
+            label=""
+            hasFeedback
+            rules={[{ required: true, message: 'Please select your car type!' }]}
+          >
+            <Select
+              defaultValue="- เลือก อัตราการเสียภาษีรถ ตามความจุกระบอกสูบ(ซีซี.) -"
+              options={carType1} />
+        </Form.Item>
+      </Col>  
+    </Row>
+    }
+    
+    {/* รย2 */}
+    {carTypeSelected == '2' &&
+        <Row>
+          <Col span={24}>
+            <Form.Item 
+                name="carType2"
+                label=""
+                hasFeedback
+                rules={[{ required: true, message: 'Please select your car type!' }]}
+              >
+                <Select
+                  defaultValue="- เลือก อัตราการเสียภาษีรถ คิดตามน้ำหนักรถ -"
+                  options={carType2} />
+            </Form.Item>
+          </Col>
+        </Row>
+    }
+     
     <Row>
       <Col span={12}>
       <Form.Item<FieldType>
