@@ -104,6 +104,20 @@ const Cpn : React.FC = () => {
     key: value,
     label: value,
   }));
+
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+
+  const carTypeOptions = [
+      { value: '7', label: '[รย.1] รถยนต์นั่งส่วนบุคคลไม่เกิน 7 คน (รถเก๋ง , รถกระบะ 4 ประตู) (645.21 บาท)' },
+      { value: '30', label: '[รย.2] รถยนต์นั่งส่วนบุคคลเกิน 7 คน (รถตู้) (1182.35 บาท)' },
+      { value: '28', label: '[รย.3] รถยนต์บรรทุกส่วนบุคคล (รถกระบะ 2 ประตู ) (967.28 บาท)' },
+      { value: '6', label: '[รย.12] รถจักรยานยนต์ส่วนบุคคล (รถจักรยานยนต์) (161.57 บาท)' },
+      // { value: 'disabled', label: 'Disabled', disabled: true },
+    ]
+  
+
     return(
         <> 
             <Row>
@@ -205,11 +219,11 @@ const Cpn : React.FC = () => {
           hasFeedback
           rules={[{ required: true, message: 'Please select your car type!' }]}
         >
-          <Select placeholder="- โปรดเลือก -">
-            <option value="type1">รย.1</option>
-            <option value="type2">รย.2</option>
-            <option value="type3">รย.3</option>
-          </Select>
+          <Select
+            defaultValue="- โปรดเลือก -"
+            onChange={handleChange}
+            options={carTypeOptions}
+    />
         </Form.Item>
       </Col>
     </Row>
