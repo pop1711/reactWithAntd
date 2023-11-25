@@ -3,6 +3,10 @@ import axios from "axios";
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React, { useState } from 'react';
 import { MinusOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import type { DatePickerProps } from 'antd';
+import { DatePicker, Space } from 'antd';
+import { Mentions } from 'antd';
+
 
 type FieldType = {
     registerNo?:string;
@@ -23,13 +27,38 @@ type FieldType = {
     rate?:number;
     fiveYearsCar?:boolean;
     amount?:number;
+    isInsoection?:boolean;
+    inspection?:number;
+    isTaxCarService?:boolean;
+    taxCarService?:number;
+    isAct?:boolean;
+    act?:number;
+    isInsurance?:boolean;
+    insurance?:number;
+    isOther1?:boolean
+    other1?:string;
+    isOther2?:boolean
+    other2?:string;
+    isOther3?:boolean
+    other3?:string;
+    note1?:string;
+    note2?:string;
+    note3?:string;
+    note?:string;
+    discount?:number;
+    payType?:string;
+    location?:string;
+    // apptDate?:string;
+    // toDay?:string;
+    isCopy?:boolean;
+    totalPrice?:string; //รวมราคาทั้งหมด
   };
   // ภาษีล่าช้า
-  interface FormData {
-    field1: string;//month
-    field2: string;//percentLate
-    field3: string;//totalPercentLate
-  }
+  type FormData = {
+    field1?:string;//month
+    field2?:string;//percentLate
+    field3?:string;//totalPercentLate
+  };
 
   const onChange = (e: CheckboxChangeEvent) => {
     console.log(`checked = ${e.target.checked}`);
@@ -61,6 +90,19 @@ const Cpn : React.FC = () => {
     // Handle form submission logic here
   };
 
+  const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
+    console.log(date, dateString);
+  };
+
+  const currentDate: Date = new Date();
+  const formattedDate: string = currentDate.toDateString();
+
+  //Mention
+  const options = ['afc163', 'zombiej', 'yesmeck'].map((value) => ({
+    value,
+    key: value,
+    label: value,
+  }));
     return(
         <> 
             <Row>
@@ -280,6 +322,201 @@ const Cpn : React.FC = () => {
     </Form>
       </div>
     </Row>
+
+    <Row>
+      <Col span={12}>
+      <Checkbox onChange={onChange} name="isInsoection">ค่าตรวจสภาพรถ</Checkbox>
+      </Col>
+      <Col span={12}>
+        <Form.Item<FieldType>
+          label=""
+          name="inspection"
+          rules={[{ required: true, message: 'Please input inspection!' }]}
+        >
+          <Input placeholder="Inspection"/>
+        </Form.Item>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col span={12}>
+      <Checkbox onChange={onChange} name="isTaxCarService">ค่าบริการเสียภาษีรถ</Checkbox>
+      </Col>
+      <Col span={12}>
+        <Form.Item<FieldType>
+          label=""
+          name="taxCarService"
+          rules={[{ required: true, message: 'Please input tax car service!' }]}
+        >
+          <Input placeholder="Tax car service"/>
+        </Form.Item>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col span={12}>
+      <Checkbox onChange={onChange} name="isAct">ค่าเบี้ยประกัน พรบ.</Checkbox>
+      </Col>
+      <Col span={12}>
+        <Form.Item<FieldType>
+          label=""
+          name="act"
+          rules={[{ required: true, message: 'Please input act!' }]}
+        >
+          <Input placeholder="0.00"/>
+        </Form.Item>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col span={12}>
+      <Checkbox onChange={onChange} name="isInsurance">ค่าเบี้ยประกัน พรบ.</Checkbox>
+      </Col>
+      <Col span={12}>
+        <Form.Item<FieldType>
+          label=""
+          name="insurance"
+          rules={[{ required: true, message: 'Please input insurance!' }]}
+        >
+          <Input placeholder="0.00"/>
+        </Form.Item>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col span={2}>
+      <Checkbox onChange={onChange} name="isOther1">อื่นๆ</Checkbox>
+      </Col>
+      <Col span={3}>
+      <Checkbox onChange={onChange} name="isOther2">อื่นๆ2</Checkbox>
+      </Col>
+      <Col span={3}>
+      <Checkbox onChange={onChange} name="isOther3">อื่นๆ3</Checkbox>
+      </Col>
+      
+      <Col span={5}>
+        <Form.Item<FieldType>
+          label=""
+          name="other1"
+          rules={[{ required: true, message: 'Please input Other service!' }]}
+        >
+          <Input placeholder="Other service"/>
+        </Form.Item>
+      </Col>
+      <Col span={5}>
+        <Form.Item<FieldType>
+          label=""
+          name="other2"
+          rules={[{ required: true, message: 'Please input Other service2!' }]}
+        >
+          <Input placeholder="Other service2"/>
+        </Form.Item>
+      </Col>
+      <Col span={5}>
+        <Form.Item<FieldType>
+          label=""
+          name="other3"
+          rules={[{ required: true, message: 'Please input Other service3!' }]}
+        >
+          <Input placeholder="Other service3"/>
+        </Form.Item>
+      </Col>
+    </Row>
+
+    <Row>
+        <Col offset={8} span={16}>
+          <Form.Item<FieldType>
+            label="หมายเหตุ อื่นๆ1"
+            name="note1"
+            rules={[{ required: false, message:''}]}
+          >
+            <Input placeholder="" />
+        </Form.Item>
+        </Col>
+    </Row>
+    <Row>
+        <Col offset={8} span={16}>
+          <Form.Item<FieldType>
+            label="หมายเหตุ อื่นๆ2"
+            name="note2"
+            rules={[{ required: false, message:''}]}
+          >
+            <Input placeholder="" />
+        </Form.Item>
+        </Col>
+    </Row>
+    <Row>
+        <Col offset={8} span={16}>
+          <Form.Item<FieldType>
+            label="หมายเหตุ อื่นๆ3"
+            name="note3"
+            rules={[{ required: false, message:''}]}
+          >
+            <Input placeholder="" />
+        </Form.Item>
+        </Col>
+    </Row>
+    <Row>
+        <Col offset={8} span={16}>
+          <Form.Item<FieldType>
+            label="หมายเหตุ"
+            name="note"
+            rules={[{ required: false, message:''}]}
+          >
+            <Input placeholder="" />
+        </Form.Item>
+        </Col>
+    </Row>
+    <Row>
+        <Col offset={8} span={16}>
+          <Form.Item<FieldType>
+            label="ส่วนลด"
+            name="discount"
+            rules={[{ required: false, message:''}]}
+          >
+            <Input placeholder="0.00" />
+        </Form.Item>
+        </Col>
+    </Row>
+    <Row>
+      <Col offset={8} span={16}>
+        <Form.Item
+        name="payType"
+        label="ประเภทชำระเงิน"
+        hasFeedback
+        rules={[{ required: true, message: 'Please select pay type!' }]}
+      >
+        <Select placeholder="กรุณาเลือกประเภทการชำระเงิน">
+          <option value="cash">เงินสด</option>
+          <option value="qrCode">QR Code</option>
+        </Select>
+      </Form.Item>
+      </Col>
+    </Row>
+    <Row>
+      <Col span={8}>
+        <p>วันที่:{formattedDate}</p>
+      </Col>
+      <Col offset={5} span={11}>
+        <Space direction="vertical">
+          <DatePicker onChange={onChangeDate}  placeholder="วันนัดรับป้ายภาษี"/>
+        </Space>
+      </Col>
+    </Row>
+    <Row>
+        <Col offset={6} span={18}>
+            <Checkbox onChange={onChange} name="isCopy">เลือก = เล่มทะเบียน / ไม่เลือก = สำเนา</Checkbox>
+        </Col>
+    </Row>
+    <Row>
+        <Mentions
+          style={{ width: '100%', textAlign: 'center' }}
+          placeholder="0.00"
+          disabled
+          options={options}
+        />
+    </Row>
+
         </>
     );
 };
