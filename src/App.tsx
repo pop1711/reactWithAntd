@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
+import { Button, Checkbox, Col, Flex, Form, Input, Row } from 'antd';
 import Cpn from './component/cpn';
 import FieldType from './component/cpn'
 import CityDropdown from './component/city';
@@ -34,13 +34,13 @@ const App: React.FC = () => (
   >
     <Cpn></Cpn>
 
-    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-      <Button type="primary" htmlType="submit">
-        Submit
+    <Form.Item wrapperCol={{ offset: 0, span: 24 }}>
+      <Button type="primary" block htmlType="submit">
+              Save
       </Button>
     </Form.Item>
 
-    {/* <CityDropdown></CityDropdown> */}
+      {/* <CityDropdown></CityDropdown> */}
 
   </Form></>
 
