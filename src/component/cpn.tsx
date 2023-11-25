@@ -1,6 +1,8 @@
-import { Col, Form, Input, Row, Select, Checkbox } from "antd";
+import { Col, Form, Input, Row, Select, Checkbox, Button} from "antd";
 import axios from "axios";
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import React, { useState } from 'react';
+import { PlusCircleOutlined } from "@ant-design/icons";
 
 type FieldType = {
     registerNo?:string;
@@ -25,12 +27,38 @@ type FieldType = {
     percentLate?:number;
     totalPercentLate?:number;
   };
+  // ภาษีล่าช้า
+  interface InputForm {
+    id: number;
+    value: string;
+  }
 
   const onChange = (e: CheckboxChangeEvent) => {
     console.log(`checked = ${e.target.checked}`);
   };
 
 const Cpn : React.FC = () => {
+  // ภาษีล่าช้า
+  const [inputForms, setInputForms] = useState<InputForm[]>([{ id: 1, value: '' }]);
+
+  const addInputForm = () => {
+    const newInputForms = [
+      ...inputForms,
+      {
+        id: inputForms.length + 1,
+        value: '',
+      },
+    ];
+    setInputForms(newInputForms);
+  };
+
+  const handleInputChange = (id: number, event: React.ChangeEvent<HTMLInputElement>) => {
+    const updatedForms = inputForms.map(form =>
+      form.id === id ? { ...form, value: event.target.value } : form
+    );
+    setInputForms(updatedForms);
+  };
+
     return(
         <> 
             <Row>
@@ -204,6 +232,9 @@ const Cpn : React.FC = () => {
       </Col>
     </Row>
 
+
+{/* ภาษีล่าช้า */}
+
     <Row>
       <Col span={6}>
       <Checkbox onChange={onChange} name="lateTax">ค่าปรับเสียภาษีล่าช้า (%เดือน)</Checkbox>
@@ -236,6 +267,39 @@ const Cpn : React.FC = () => {
         </Form.Item>
       </Col>
     </Row>
+
+    {inputForms.map(form => (
+        <div key={form.id} style={{ marginBottom: '10px' }}>
+          <Row>
+            <Col span={6}>
+            <Input
+              value={form.value}
+              onChange={e => handleInputChange(form.id, e)}
+              placeholder="Enter a value"
+            />
+            </Col>
+            <Col span={6}>
+            <Input
+              value={form.value}
+              onChange={e => handleInputChange(form.id, e)}
+              placeholder="Enter a value"
+            />
+            </Col>
+            <Col span={6}>
+            <Input
+              value={form.value}
+              onChange={e => handleInputChange(form.id, e)}
+              placeholder="Enter a value"
+            />
+            </Col>
+          </Row>
+          
+        </div>
+      ))}
+      <Button type="primary" onClick={addInputForm} icon={<PlusCircleOutlined />}>
+        
+      </Button>
+
         </>
     );
 };
