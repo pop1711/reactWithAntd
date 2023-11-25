@@ -1,5 +1,6 @@
-import { Col, Form, Input, Row, Select } from "antd";
+import { Col, Form, Input, Row, Select, Checkbox } from "antd";
 import axios from "axios";
+import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 type FieldType = {
     registerNo?:string;
@@ -10,6 +11,13 @@ type FieldType = {
     phoneNumber?:string;
     city?:string;
     idCard?:string;
+    carType?:string;
+    cc?:number;
+    weigth?:number;
+  };
+
+  const onChange = (e: CheckboxChangeEvent) => {
+    console.log(`checked = ${e.target.checked}`);
   };
 
 const Cpn : React.FC = () => {
@@ -34,7 +42,7 @@ const Cpn : React.FC = () => {
       <Input />
     </Form.Item> */}
     <Form.Item
-      name="select"
+      name="city"
       label="จังหวัด"
       hasFeedback
       rules={[{ required: true, message: 'Please select your province!' }]}
@@ -106,10 +114,55 @@ const Cpn : React.FC = () => {
         </Form.Item>
       </Col>
     </Row>
-      {/* เพิ่มมาใหม่
-    <div className="province">
-      
-    </div> */}
+    <Row>
+      <Col span={24}>
+        <Form.Item
+          name="carType"
+          label="ประเภทรถ"
+          hasFeedback
+          rules={[{ required: true, message: 'Please select your car type!' }]}
+        >
+          <Select placeholder="- โปรดเลือก -">
+            <option value="type1">รย.1</option>
+            <option value="type2">รย.2</option>
+            <option value="type3">รย.3</option>
+          </Select>
+        </Form.Item>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col span={12}>
+      <Form.Item<FieldType>
+      label="CC"
+      name="cc"
+      rules={[{ required: true, message: 'Please input your CC!' }]}
+    >
+      <Input />
+    </Form.Item>
+      </Col>
+      <Col span={12}>
+      <Form.Item<FieldType>
+      label="Weigth"
+      name="weigth"
+      rules={[{ required: true, message: 'Please input your weigth!' }]}
+    >
+      <Input />
+    </Form.Item>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col span={8}>
+      <Checkbox onChange={onChange}>นิติบุคคลที่มิได้เป็นผู้ให้เช้าซื้อ(คูณ x)</Checkbox>
+      </Col>
+      <Col span={8}>
+      <Checkbox onChange={onChange}>ส่วนลด NGV/CNG(%)</Checkbox>
+      </Col>
+      <Col span={8}>
+      <Checkbox onChange={onChange}>ส่วนลด Hybrid(%)</Checkbox>
+      </Col>
+    </Row>
         </>
     );
 };
