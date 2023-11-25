@@ -14,6 +14,13 @@ type FieldType = {
     carType?:string;
     cc?:number;
     weigth?:number;
+    legalEntity?:boolean;
+    ngv?:boolean;
+    hybrid?:boolean;
+    carTax?:boolean;
+    rate?:number;
+    fiveYearsCar?:boolean;
+    amount?:number;
   };
 
   const onChange = (e: CheckboxChangeEvent) => {
@@ -154,13 +161,43 @@ const Cpn : React.FC = () => {
 
     <Row>
       <Col span={8}>
-      <Checkbox onChange={onChange}>นิติบุคคลที่มิได้เป็นผู้ให้เช้าซื้อ(คูณ x)</Checkbox>
+      <Checkbox onChange={onChange} name="legalEntity">นิติบุคคลที่มิได้เป็นผู้ให้เช้าซื้อ(คูณ x)</Checkbox>
       </Col>
       <Col span={8}>
-      <Checkbox onChange={onChange}>ส่วนลด NGV/CNG(%)</Checkbox>
+      <Checkbox onChange={onChange} name="ngv">ส่วนลด NGV/CNG(%)</Checkbox>
       </Col>
       <Col span={8}>
-      <Checkbox onChange={onChange}>ส่วนลด Hybrid(%)</Checkbox>
+      <Checkbox onChange={onChange} name="hybrid">ส่วนลด Hybrid(%)</Checkbox>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col span={8}>
+      <Checkbox onChange={onChange} name="carTax">ค่าภาษีรถประจำปี</Checkbox>
+      </Col>
+      <Col span={16}>
+      <Form.Item<FieldType>
+          label=""
+          name="rate"
+          rules={[{ required: true, message: 'Please input your rate!' }]}
+        >
+          <Input placeholder="Rate"/>
+        </Form.Item>
+      </Col>
+    </Row>
+
+    <Row>
+      <Col span={8}>
+      <Checkbox onChange={onChange} name="fiveYearsCar">รถเก่าใช้มานานเกิน 5 ปี ให้ลดภาษี(% จากภาษี)</Checkbox>
+      </Col>
+      <Col span={16}>
+      <Form.Item<FieldType>
+          label=""
+          name="amount"
+          rules={[{ required: true, message: 'Please input your amount!' }]}
+        >
+          <Input placeholder="Amount"/>
+        </Form.Item>
       </Col>
     </Row>
         </>
