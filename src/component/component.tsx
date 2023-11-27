@@ -43,9 +43,5 @@ export type FieldType = {
     // toDay?:string;
     isCopy?:boolean;
     totalPrice?:string; //รวมราคาทั้งหมด
+    ccMultiple?:number;
   };
-
-//   export const createType = {
-//     fieldType:FieldType,
-//     carType:String
-//   }

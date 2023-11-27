@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Checkbox, Col, Flex, Form, Input, Row } from 'antd';
 import Cpn from './component/cpn';
 import { FieldType } from './component/component';
+import TypeCarOneValueOne from './component/typeOneValueOne';
 
 
 const App: React.FC = () => {
@@ -59,6 +60,8 @@ const [formSave, setFormSave] = useState<FieldType>();
         {/* <CityDropdown></CityDropdown> */}
 
     </Form>
+
+    {/* <TypeCarOneValueOne></TypeCarOneValueOne> */}
     </>
   )
 };

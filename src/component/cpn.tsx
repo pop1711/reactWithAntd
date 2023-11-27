@@ -39,6 +39,7 @@ const Cpn : React.FC = () => {
     updatedFields[index][fieldName] = value;
     setFields(updatedFields);
   };
+  // ภาษีล่าช้า ถึงตรงนี้
 
   const onFinish = () => {
     console.log('Submitted Fields:', fields);
@@ -63,10 +64,18 @@ const Cpn : React.FC = () => {
     console.log(`selected ${value}`);
   };
 
-  const [carTypeSelected, setCarTypeSelected] = useState<string>('0');
+  const [carTypeOptionSelected, setCarTypeOptionSelected] = useState<string>('0');
+  const [carType1Selected, setCarType1Selected] = useState<string>();
 
-  const carTypeChange = (value:any) => {
-    setCarTypeSelected(value)
+  const carTypeOptionChange = (value:any) => {
+    setCarTypeOptionSelected(value)
+  }
+  
+  const carType1Change = (v:any) => {
+    const found = carType1.find(obj => {
+      return obj.value == v;
+    });
+    setCarType1Selected(found?.ccMultiple ?? '')
   }
 
   const carTypeOptions = [
@@ -78,15 +87,15 @@ const Cpn : React.FC = () => {
     ]
 
   const carType1 = [
-    { value: '1', label: 'ไม่เกิน 5 ปี  cc น้อยกว่า 600' },
-    { value: '2', label: 'ไม่เกิน 5 ปี  cc 601 - 1,800' },
-    { value: '3', label: 'ไม่เกิน 5 ปี  cc เกิน 1,800' },
-    { value: '4', label: 'เป็นรถเก่าใช้งานมานานเกิน 6 ปี ให้ลดภาษี' },
-    { value: '5', label: 'เป็นรถเก่าใช้งานมานานเกิน 7 ปี ให้ลดภาษี' },
-    { value: '6', label: 'เป็นรถเก่าใช้งานมานานเกิน 8 ปี ให้ลดภาษี' },
-    { value: '7', label: 'เป็นรถเก่าใช้งานมานานเกิน 9 ปี ให้ลดภาษี' },
-    { value: '8', label: 'เป็นรถเก่าใช้งานมานานเกิน 10 ปี ให้ลดภาษี'},
-    { value: '9', label: 'รถจักรยานยนต์' },
+    { value: '1', label: 'ไม่เกิน 5 ปี  cc น้อยกว่า 600', ccMultiple: '0.5' },
+    { value: '2', label: 'ไม่เกิน 5 ปี  cc 601 - 1,800', ccMultiple: '1.5'  },
+    { value: '3', label: 'ไม่เกิน 5 ปี  cc เกิน 1,800', ccMultiple: '4'  },
+    { value: '4', label: 'เป็นรถเก่าใช้งานมานานเกิน 6 ปี ให้ลดภาษี', ccMultiple: '1'  },
+    { value: '5', label: 'เป็นรถเก่าใช้งานมานานเกิน 7 ปี ให้ลดภาษี', ccMultiple: '1'  },
+    { value: '6', label: 'เป็นรถเก่าใช้งานมานานเกิน 8 ปี ให้ลดภาษี', ccMultiple: '1'  },
+    { value: '7', label: 'เป็นรถเก่าใช้งานมานานเกิน 9 ปี ให้ลดภาษี', ccMultiple: '1'  },
+    { value: '8', label: 'เป็นรถเก่าใช้งานมานานเกิน 10 ปี ให้ลดภาษี', ccMultiple: '1' },
+    { value: '9', label: 'รถจักรยานยนต์', ccMultiple: '1'  },
   ]
 
   const carType2 = [
@@ -107,9 +116,9 @@ const Cpn : React.FC = () => {
     { value: '15', label: '6,001 - 7,000' },
     { value: '16', label: '7,000 ขึ้นไป' },
   ]
-  
+  console.log(carType1);
 
-    return(
+      return(
         <> 
             <Row>
       <Col span={12}>
@@ -212,16 +221,16 @@ const Cpn : React.FC = () => {
         >
           <Select
             defaultValue="- โปรดเลือก -"
-            onChange={carTypeChange}
+            onChange={carTypeOptionChange}
             options={carTypeOptions}
     />
         </Form.Item>
       </Col>
     </Row>
     {/* รย1 */}
-    {carTypeSelected == '1' &&
+    {carTypeOptionSelected == '1' &&
       <Row>
-      <Col span={24}>
+      <Col offset={8} span={16}>
         <Form.Item 
             name="carType1"
             label=""
@@ -230,6 +239,7 @@ const Cpn : React.FC = () => {
           >
             <Select
               defaultValue="- เลือก อัตราการเสียภาษีรถ ตามความจุกระบอกสูบ(ซีซี.) -"
+              onChange={carType1Change}
               options={carType1} />
         </Form.Item>
       </Col>  
@@ -237,7 +247,7 @@ const Cpn : React.FC = () => {
     }
     
     {/* รย2 */}
-    {carTypeSelected == '2' &&
+    {carTypeOptionSelected == '2' &&
         <Row>
           <Col span={24}>
             <Form.Item 
@@ -286,6 +296,21 @@ const Cpn : React.FC = () => {
       <Checkbox onChange={onChange} name="hybrid">ส่วนลด Hybrid(%)</Checkbox>
       </Col>
     </Row>
+
+    {carTypeOptionSelected == '1' &&
+      <Row>
+        <Col offset={8} span={16}>
+        <Form.Item<FieldType>
+          label="CC คูณx"
+          // name="ccMultiple"
+          rules={[{ required: false, message: '' }]}
+        >
+          <Input placeholder={carType1Selected} disabled={true}/>
+        </Form.Item>
+        </Col>
+      </Row>
+    }
+
 
     <Row>
       <Col span={8}>
@@ -588,6 +613,5 @@ const Cpn : React.FC = () => {
         </>
     );
 };
-
 
 export default Cpn;
