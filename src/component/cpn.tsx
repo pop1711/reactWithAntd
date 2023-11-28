@@ -71,11 +71,13 @@ const Cpn : React.FC = () => {
     setCarTypeOptionSelected(value)
   }
   
+  const [autoCheckboxCarTax ,setAutoCheckboxCarTax] = useState(false);
   const carType1Change = (v:any) => {
     const found = carType1.find(obj => {
       return obj.value == v;
     });
     setCarType1Selected(found?.ccMultiple ?? '')
+    setAutoCheckboxCarTax(found?.value == '1')
   }
 
   const carTypeOptions = [
@@ -87,15 +89,15 @@ const Cpn : React.FC = () => {
     ]
 
   const carType1 = [
-    { value: '1', label: 'ไม่เกิน 5 ปี  cc น้อยกว่า 600', ccMultiple: '0.5' },
-    { value: '2', label: 'ไม่เกิน 5 ปี  cc 601 - 1,800', ccMultiple: '1.5'  },
-    { value: '3', label: 'ไม่เกิน 5 ปี  cc เกิน 1,800', ccMultiple: '4'  },
-    { value: '4', label: 'เป็นรถเก่าใช้งานมานานเกิน 6 ปี ให้ลดภาษี', ccMultiple: '1'  },
-    { value: '5', label: 'เป็นรถเก่าใช้งานมานานเกิน 7 ปี ให้ลดภาษี', ccMultiple: '1'  },
-    { value: '6', label: 'เป็นรถเก่าใช้งานมานานเกิน 8 ปี ให้ลดภาษี', ccMultiple: '1'  },
-    { value: '7', label: 'เป็นรถเก่าใช้งานมานานเกิน 9 ปี ให้ลดภาษี', ccMultiple: '1'  },
-    { value: '8', label: 'เป็นรถเก่าใช้งานมานานเกิน 10 ปี ให้ลดภาษี', ccMultiple: '1' },
-    { value: '9', label: 'รถจักรยานยนต์', ccMultiple: '1'  },
+    { value: '1', label: 'ไม่เกิน 5 ปี  cc น้อยกว่า 600', ccMultiple: '0.5', carTax: true, rate: '0.00' },
+    { value: '2', label: 'ไม่เกิน 5 ปี  cc 601 - 1,800', ccMultiple: '1.5', carTax: true, rate: '0.00'  },
+    { value: '3', label: 'ไม่เกิน 5 ปี  cc เกิน 1,800', ccMultiple: '4', carTax: true, rate: '0.00'  },
+    { value: '4', label: 'เป็นรถเก่าใช้งานมานานเกิน 6 ปี ให้ลดภาษี', ccMultiple: '1', carTax: true, rate: '0.00'  },
+    { value: '5', label: 'เป็นรถเก่าใช้งานมานานเกิน 7 ปี ให้ลดภาษี', ccMultiple: '1', carTax: true, rate: '0.00'  },
+    { value: '6', label: 'เป็นรถเก่าใช้งานมานานเกิน 8 ปี ให้ลดภาษี', ccMultiple: '1', carTax: true, rate: '0.00'  },
+    { value: '7', label: 'เป็นรถเก่าใช้งานมานานเกิน 9 ปี ให้ลดภาษี', ccMultiple: '1', carTax: true, rate: '0.00'  },
+    { value: '8', label: 'เป็นรถเก่าใช้งานมานานเกิน 10 ปี ให้ลดภาษี', ccMultiple: '1', carTax: true, rate: '0.00' },
+    { value: '9', label: 'รถจักรยานยนต์', ccMultiple: '1', carTax: true, rate: '0.00'  },
   ]
 
   const carType2 = [
@@ -314,7 +316,7 @@ const Cpn : React.FC = () => {
 
     <Row>
       <Col span={8}>
-      <Checkbox onChange={onChange} name="carTax">ค่าภาษีรถประจำปี</Checkbox>
+      <Checkbox onChange={(o)=> setAutoCheckboxCarTax(o.target.checked)} name="carTax" checked={autoCheckboxCarTax}>ค่าภาษีรถประจำปี</Checkbox>
       </Col>
       <Col span={16}>
       <Form.Item<FieldType>
